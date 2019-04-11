@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./../../App.css";
 import TextField from "@material-ui/core/TextField";
 import CardData from "../../services/personcard";
 import CardList from "../cardList/cardlist";
@@ -15,16 +16,23 @@ class Card extends Component {
   }
   handlerChange = event => {
     let count = event.target.value;
+    let message = "Input value does not exist";
     if (isNaN(count)) {
       // If the Given Value is Not Number Then It Will Return True and This Part Will Execute.
       this.setState({
-        personCountError: "Input value does not exist"
+        personCountError: message
+      });
+    } else if (count === "0") {
+      // If the Given Value is Number = 0 Then this Part Will Execute.
+      this.setState({
+        personCountError: message
       });
     } else {
-      // If the Given Value is Number Then It Will Return False and This Part Will Execute.
+      // If the Given Value is Number > 0 Then this Part Will Execute.
       this.setState({
         personCount: count,
-        personCountError: ""
+        personCountError: "",
+        cardList: ""
       });
     }
   };
@@ -41,25 +49,27 @@ class Card extends Component {
     event.preventDefault();
   };
 
-  componentDidMount() {}
+  componentDidMount = () => {};
   render() {
     const { personCount, personCountError } = this.state;
     return (
       <div>
-        <form className="card" onSubmit={this.handlerSubmit}>
-          <TextField
-            id="filled-with-placeholder"
-            label="No of Person"
-            margin="normal"
-            variant="filled"
-            name="personCount"
-            placeholder="Enter Person Count"
-            value={personCount}
-            onChange={this.handlerChange}
-          />
-          <div style={{ fontSize: 12, color: "red" }}>{personCountError}</div>
-        </form>
-        <CardList cardList={this.state.cardList} />
+        <header className="App-header">
+          <form className="card" onSubmit={this.handlerSubmit}>
+            <TextField
+              id="filled-with-placeholder"
+              label="No of Person"
+              margin="normal"
+              variant="filled"
+              name="personCount"
+              placeholder="Enter Person Count"
+              value={personCount}
+              onChange={this.handlerChange}
+            />
+            <div style={{ fontSize: 12, color: "red" }}>{personCountError}</div>
+          </form>
+          <CardList cardList={this.state.cardList} />
+        </header>
       </div>
     );
   }

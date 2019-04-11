@@ -3,17 +3,25 @@ import React from "react";
 //import { Grid, GridList } from "@material-ui/core";
 import { Container, Row, Col } from "react-bootstrap";
 const CardList = props => {
-  console.log(props);
-  if (props.cardList[1] === undefined) {
+  if (props.cardList.length === 0) {
     return null;
   } else {
     const { cardList } = props;
     const listItems = cardList.map(number => number.cardList);
-    const ListItemValues = listItems.map(data => <Col>{data}</Col>);
+    const ListItemValues = listItems.map((data, idx) => (
+      <Row className="justify-content-md-center">
+        <Col xs={6} md={4}>
+          Person{idx}
+        </Col>
+        <Col xs={12} md={8}>
+          {data.map(res => res + ",")}
+        </Col>
+      </Row>
+    ));
     return (
-      <Container>
-        <Row>{ListItemValues}</Row>
-      </Container>
+      <div>
+        <Container>{ListItemValues}</Container>
+      </div>
     );
   }
 };
