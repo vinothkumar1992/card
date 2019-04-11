@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./../../App.css";
+import "./card.css";
 //import TextField from "@material-ui/core/TextField";
 import CardData from "../../services/personcard";
 import CardList from "../cardList/cardlist";
@@ -71,7 +72,7 @@ class Card extends Component {
             Submit
           </Button>
         </Form>
-        <CardList cardList={this.state.cardList} />
+        <CardList cardList={this.state.cardList} className="card-list" />
       </div>
     );
   }

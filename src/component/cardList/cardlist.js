@@ -19,7 +19,7 @@ const CardList = props => {
         </Col>
       </Row>
     ));
-    return <Container>{ListItemValues}</Container>;
+    return <Container className="container">{ListItemValues}</Container>;
   }
 };
 export default CardList;
