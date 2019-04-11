@@ -1,38 +1,36 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import TextField from "@material-ui/core/TextField";
+//import TextField from "@material-ui/core/TextField";
 import CardData from "../../services/personcard";
 import CardList from "../cardList/cardlist";
+import { Form, Button } from "react-bootstrap";
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
       personCount: "",
-      personCountError: "",
-      cardList: []
+      cardList: [],
+      validated: false
     };
     // this.handlerChange = this.handlerChange.bind(this);
     // this.handlerSubmit = this.handlerSubmit.bind(this);
   }
   handlerChange = event => {
     let count = event.target.value;
-    let message = "Input value does not exist";
     if (isNaN(count)) {
+      event.preventDefault();
+      event.stopPropagation();
       // If the Given Value is Not Number Then It Will Return True and This Part Will Execute.
-      this.setState({
-        personCountError: message
-      });
+      this.setState({ validated: true });
     } else if (count === "0") {
       // If the Given Value is Number = 0 Then this Part Will Execute.
-      this.setState({
-        personCountError: message
-      });
+      this.setState({ validated: true });
     } else {
       // If the Given Value is Number > 0 Then this Part Will Execute.
       this.setState({
         personCount: count,
-        personCountError: "",
-        cardList: ""
+        cardList: "",
+        validated: false
       });
     }
   };
@@ -51,25 +49,29 @@ class Card extends Component {
 
   componentDidMount = () => {};
   render() {
-    const { personCount, personCountError } = this.state;
+    const { personCount, validated } = this.state;
     return (
       <div>
-        <header className="App-header">
-          <form className="card" onSubmit={this.handlerSubmit}>
-            <TextField
-              id="filled-with-placeholder"
-              label="No of Person"
-              margin="normal"
-              variant="filled"
-              name="personCount"
-              placeholder="Enter Person Count"
+        <Form noValidate validated={validated} onSubmit={this.handlerSubmit}>
+          <Form.Group md="3" controlId="validationCustom05">
+            <Form.Label>Count</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Person Count"
               value={personCount}
               onChange={this.handlerChange}
+              required
             />
-            <div style={{ fontSize: 12, color: "red" }}>{personCountError}</div>
-          </form>
-          <CardList cardList={this.state.cardList} />
-        </header>
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid Number.
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+        <CardList cardList={this.state.cardList} />
       </div>
     );
   }
