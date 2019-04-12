@@ -1,4 +1,4 @@
-import TestModel from "../component/card/test";
+import TestModel from "./test";
 
 const CardData = personCount => {
   return new Promise((resolve, reject) => {
@@ -7,7 +7,7 @@ const CardData = personCount => {
     })
       .then(response => response.json())
       .then(res => {
-        resolve(res);
+        resolve((cardModel.cardlist = res));
       })
       .catch(error => {
         reject(error);
