@@ -7,7 +7,7 @@ const CardData = personCount => {
     })
       .then(response => response.json())
       .then(res => {
-        resolve((cardModel.cardlist = res));
+        resolve(res);
       })
       .catch(error => {
         reject(error);
