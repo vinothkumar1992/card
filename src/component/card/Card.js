@@ -5,6 +5,7 @@ import "./card.css";
 import CardData from "../../services/personcard";
 import CardList from "../cardList/cardlist";
 import { Form, Button } from "react-bootstrap";
+import TestModel from "./test";
 class Card extends Component {
   constructor(props) {
     super(props);
@@ -37,9 +38,12 @@ class Card extends Component {
   };
 
   handlerSubmit = event => {
+    let modellist = new TestModel();
+    console.log(modellist);
     let data = this.state.personCount;
     CardData(data).then(result => {
       let responseJson = result;
+      modellist.cardlist = result;
       console.log(responseJson);
       this.setState({
         cardList: responseJson

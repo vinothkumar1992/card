@@ -1,3 +1,5 @@
+import TestModel from "../component/card/test";
+
 const CardData = personCount => {
   //let BaseURL = `http://127.0.0.1:8080/api/card.php?`;
   return new Promise((resolve, reject) => {
