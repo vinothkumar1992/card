@@ -40,8 +40,7 @@ class Card extends Component {
   handlerSubmit = event => {
     let data = this.state.personCount;
     CardData(data).then(result => {
-      modellist.cardlist = result;
-      console.log(responseJson);
+      let responseJson = result;
       this.setState({
         cardList: responseJson
       });
